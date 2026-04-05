@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shipped - منصة الشحن الموحدة B2B</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&family=Tajawal:wght@300;400;500;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #5B4FDE;
+            --secondary: #6FCF97;
+            --dark: #1E1B3D;
+            --light: #F8F9FC;
+            --accent: #4ECDC4;
+            --text-dark: #2D3748;
+            --text-light: #718096;
+        }
+
+        body {
+            font-family: 'Tajawal', 'Cairo', sans-serif;
+            background: linear-gradient(135deg, var(--dark) 0%, #2D2654 100%);
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        .presentation {
+            width: 100%;
+            height: 100vh;
+            position: relative;
+        }
+
+        .slide {
+            width: 100%;
+            height: 100vh;
+            display: none;
+            position: relative;
+            padding: 60px 80px;
+            background: linear-gradient(135deg, var(--dark) 0%, #2D2654 100%);
+            opacity: 0;
+            transition: opacity 0.6s ease;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+            opacity: 1;
+            animation: slideIn 0.8s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Header with Logo */
+        .slide-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo {
+            width: 60px;
+            height: 60px;
+            background: white;
+            padding: 8px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .brand-name {
+            font-family: 'Cairo', sans-serif;
+            font-size: 32px;
+            font-weight: 800;
+            color: white;
+            letter-spacing: 1px;
+        }
+
+        .slide-number {
+            color: var(--secondary);
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        /* Content Sections */
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+
+        .title {
+            font-family: 'Cairo', sans-serif;
+            font-size: 58px;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 25px;
+            line-height: 1.2;
+            text-shadow: 2px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .subtitle {
+            font-size: 28px;
+            color: var(--secondary);
+            margin-bottom: 40px;
+            font-weight: 500;
+        }
+
+        .description {
+            font-size: 22px;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.8;
+            max-width: 900px;
+            margin-bottom: 30px;
+        }
+
+        /* Feature Grid */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .feature-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 12px;
+        }
+
+        .feature-text {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+        }
+
+        /* Stats Section */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .stat-box {
+            background: linear-gradient(135deg, rgba(111, 207, 151, 0.1), rgba(91, 79, 222, 0.1));
+            border: 2px solid var(--secondary);
+            border-radius: 20px;
+            padding: 35px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 48px;
+            font-weight: 800;
+            color: var(--secondary);
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 18px;
+            color: white;
+            font-weight: 600;
+        }
+
+        /* Screenshot Container */
+        .screenshot-container {
+            position: absolute;
+            left: 80px;
+            bottom: 80px;
+            width: 350px;
+        }
+
+        .screenshot-container img {
+            width: 100%;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            border: 8px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* List Styling */
+        .benefit-list {
+            list-style: none;
+            margin-top: 30px;
+        }
+
+        .benefit-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 20px;
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+        }
+
+        .benefit-list li::before {
+            content: "✓";
+            color: var(--secondary);
+            font-size: 28px;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        /* Navigation */
+        .navigation {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        .nav-btn:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+            transform: scale(1.05);
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            right: 0;
+            height: 5px;
+            background: var(--secondary);
+            transition: width 0.3s ease;
+            z-index: 1001;
+        }
+
+        /* Two Column Layout */
+        .two-column {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .column-content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .column-image {
+            position: relative;
+        }
+
+        .column-image img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Special Slide Types */
+        .slide-cover {
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(135deg, #1E1B3D 0%, #2D2654 50%, #5B4FDE 100%);
+        }
+
+        .slide-cover .title {
+            font-size: 72px;
+            margin-bottom: 30px;
+        }
+
+        .slide-cover .logo {
+            width: 120px;
+            height: 120px;
+            margin-bottom: 40px;
+        }
+
+        /* Decorative Elements */
+        .decorative-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(111, 207, 151, 0.15), transparent);
+            pointer-events: none;
+        }
+
+        .circle-1 {
+            width: 400px;
+            height: 400px;
+            top: -200px;
+            left: -200px;
+        }
+
+        .circle-2 {
+            width: 600px;
+            height: 600px;
+            bottom: -300px;
+            left: -300px;
+            background: radial-gradient(circle, rgba(91, 79, 222, 0.1), transparent);
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .slide {
+                padding: 40px;
+            }
+
+            .title {
+                font-size: 48px;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .two-column {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+
+    <div class="presentation">
+        <!-- Slide 1: Cover -->
+        <div class="slide active slide-cover">
+            <img src="C:\Users\User\Downloads\logo.jpeg" alt="Shipped Logo" class="logo">
+            <h1 class="title">Shipped</h1>
+            <p class="subtitle">منصة الشحن الموحدة لتسهيل الخدمات اللوجستية</p>
+            <p class="description" style="color: rgba(255,255,255,0.8);">
+                Defining Shipping & E-Commerce Logistics
+            </p>
+            <div class="decorative-circle circle-1"></div>
+            <div class="decorative-circle circle-2"></div>
+        </div>
+
+        <!-- Slide 2: About the Platform -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="logo-container">
+                    <img src="C:\Users\User\Downloads\logo.jpeg" alt="Logo" class="logo">
+                    <span class="brand-name">SHIPPED</span>
+                </div>
+                <span class="slide-number">2 / 12</span>
+            </div>
+            <div class="slide-content">
+                <h2 class="title">مقدمة عن التطبيق</h2>
+                <p class="description">
+                    Shipped هو تطبيق مجاني مبتكر للأفراد لتعزيز عمليات الشحن المتنوعة يتيح
+                    للأشخاص والتجار الشحن من خلال شركات الشحن المختلفة من خلال نظام موحد.
+                </p>
+                <ul class="benefit-list">
+                    <li>تمكين المستخدمين من الوصول إلى أفضل حلول الشحن</li>
+                    <li>ربط التجار والعملاء بشركات الشحن المتنوعة عبر تطبيق موحد</li>
+                    <li>يوفر الوقت الجهد وخفض التكاليف</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 3: Our Mission & Vision -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="logo-container">
+                    <img src="C:\Users\User\Downloads\logo.jpeg" alt="Logo" class="logo">
+                    <span class="brand-name">SHIPPED</span>
+                </div>
+                <span class="slide-number">3 / 12</span>
+            </div>
+            <div class="slide-content two-column">
+                <div class="column-content">
+                    <h2 class="title">مبادئنا</h2>
+                    <div class="feature-card">
+                        <h3 class="feature-title">مهمتنا</h3>
+                        <p class="feature-text">
+                            تمكين المستخدمين من الوصول إلى أفضل حلول الشحن
+                            عبر تطبيق موحد يربط بين العملاء وشركات الشحن المتنوعة
+                            بهدف توفير الوقت الجهد وخفض التكاليف
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <h3 class="feature-title">رؤيتنا</h3>
+                        <p class="feature-text">
+                            أن نكون الوجهة الأولى للأفراد والشركات في خدمات
+                            الشحن المتنوعة من خلال تقديم تجربة سلسة و متكاملة
+                            تلبي احتياجات السوق المحلي
+                        </p>
+                    </div>
+                </div>
+                <div class="column-image">
+                    <img src="C:\Users\User\Downloads\shipping guy.jpg" alt="Mission Vision">
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Our Goals -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="logo-container">
+                    <img src="C:\Users\User\Downloads\logo.jpeg" alt="Logo" class="logo">
+                    <span class="brand-name">SHIPPED</span>
+                </div>
+                <span class="slide-number">4 / 12</span>
+            </div>
+            <div class="slide-content">
+                <h2 class="title">هدفنا</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">📦</div>
+                        <h3 class="feature-title">توفر خدمة شحن موثوقة وفعالة</h3>
+                        <p class="feature-text">للأفراد من خلال منصة واحدة</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🌍</div>
+                        <h3 class="feature-title">توفر جميع العروض والخدمات</h3>
+                        <p class="feature-text">والتعرف على الشركات المختلفة في جميع أنحاء الجمهورية</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📱</div>
+                        <h3 class="feature-title">يساعد التطبيق الأفراد</h3>
+                        <p class="feature-text">على تلبية احتياجهم للشحن</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🎯</div>
+                        <h3 class="feature-title">تساعد الشركات</h3>
+                        <p class="feature-text">في الاستهداف الأمثل للعملاء</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">💡</div>
+                        <h3 class="feature-title">توفير المتطلبات المختلفة للعملاء</h3>
+                        <p class="feature-text">من خدمات شحن متنوعة</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">👥</div>
+                        <h3 class="feature-title">استقطاب عملاء جدد</h3>
+                        <p class="feature-text">وتوسيع قاعدة العملاء</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Our Services -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="logo-container">
+                    <img src="C:\Users\User\Downloads\logo.jpeg" alt="Logo" class="logo">
+                    <span class="brand-name">SHIPPED</span>
+                </div>
+                <span class="slide-number">5 / 12</span>
+            </div>
+            <div class="slide-content">
+                <h2 class="title">خدماتنا</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🔗</div>
+                        <h3 class="feature-title">الربط بين العملاء وشركات الشحن المختلفة</h3>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <h3 class="feature-title">عرض تقييمات العملاء السابقين</h3>
+                        <p class="feature-text">وتفاصيل الخدمات بشفافية</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">💰</div>
+                        <h3 class="feature-title">إمكانية مقارنة الأسعار</h3>
+                        <p class="feature-text">والخدمات المتنوعة</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🚚</div>
+                        <h3 class="feature-title">تقديم خدمات الشحن</h3>
+                        <p class="feature-text">متنوع داخل الجمهورية</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">💳</div>
+                        <h3 class="feature-title">خدمات التحصيل</h3>
+                        <p class="feature-text">خدمة من الباب إلى الباب وخيارات الدفع المتعددة</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Marketplace Features -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="logo-container">
+                    <img src="C:\Users\User\Downloads\logo.jpeg" alt="Logo" class="logo">
+                    <span class="brand-name">SHIPPED</span>
+                </div>
+                <span class="slide-number">6 / 12</span>
+            </div>
+            <div class="slide-content two-column">
+                <div class="column-content">
+                    <h2 class="title">السوق الموحد</h2>
+                    <p class="description">
+                        مقارنة شفافة للأسعار عبر 20-30 شركة شحن في مكان واحد
+                    </p>
+                    <ul class="benefit-list">
+                        <li>عرض الأسعار من جميع شركات الشحن المتاحة</li>
+                        <li>الترتيب حسب السعر (الأرخص أولاً)</li>
+                        <li>عرض شارة "Verified Carrier" للشركات الموثوقة</li>
+                        <li>إظهار خيارات التأمين المتاحة</li>
+                        <li>عرض أسعار الباقات الخاصة إن وجدت</li>
+                    </ul>
+                </div>
+                <div class="column-image">
+                    <img src="C:\Users\User\Downloads\compare.png" alt="Marketplace">
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Shipment Creation -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="logo-container">
+                    <img src="C:\Users\User\Downloads\logo.jpeg" alt="Logo" class="logo">
+                    <span class="brand-name">SHIPPED</span>
+                </div>
+                <span class="slide-number">7 / 12</span>
+            </div>
+            <div class="slide-content two-column">
+                <div class="column-content">
+                    <h2 class="title">إنشاء الشحنة</h2>
+                    <p class="description">
+                        عملية سلسة وسريعة لإنشاء الشحنات مع توليد AWB تلقائياً
+                    </p>
+                    <ul class="benefit-list">
+                        <li>إدخال تفاصيل الشحنة (العنوان، الوزن، الحجم)</li>
+                        <li>اختيار شركة الشحن المناسبة</li>
+                        <li>توليد رقم AWB فريد (SHP-2026-XXXXX)</li>
+                        <li>إنشاء ملصق الشحن بباركود Code 128</li>
+                        <li>إرسال PDF عبر البريد الإلكتروني فوراً</li>
+                        <li>تتبع الشحنة في الوقت الفعلي</li>
+                    </ul>
+                </div>
+                <div class="column-image">
+                    <img src="C:\Users\User\Downloads\create.png" alt="Create Shipment">
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Tracking Dashboard -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="logo-container">
+                    <img src="C:\Users\User\Downloads\logo.jpeg" alt="Logo" class="logo">
+                    <span class="brand-name">SHIPPED</span>
+                </div>
+                <span class="slide-number">8 / 12</span>
+            </div>
+            <div class="slide-content two-column">
+                <div class="column-content">
+                    <h2 class="title">لوحة التتبع</h2>
+                    <p class="description">
+                        تتبع شحناتك في الوقت الفعلي مع تحديثات فورية من شركات الشحن
+                    </p>
+                    <ul class="benefit-list">
+                        <li>عرض جميع الشحنات في مكان واحد</li>
+                        <li>تحديثات الحالة الفورية من شركات الشحن</li>
+                        <li>خط زمني تفصيلي لكل شحنة</li>
+                        <li>إشعارات بالتحديثات المهمة</li>
+                        <li>إعادة تحميل ملصق الشحن</li>
+                        <li>عرض تفاصيل الدفع عند الاستلام (COD)</li>
+                    </ul>
+                </div>
+                <div class="column-image">
+                    <img src="C:\Users\User\Downloads\track.png" alt="Tracking">
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Courier Dashboard -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="logo-container">
+                    <img src="C:\Users\User\Downloads\logo.jpeg" alt="Logo" class="logo">
+                    <span class="brand-name">SHIPPED</span>
+                </div>
+                <span class="slide-number">9 / 12</span>
+            </div>
+            <div class="slide-content">
+                <h2 class="title">لوحة شركات الشحن</h2>
+                <p class="description">
+                    أدوات احترافية لشركات الشحن لإدارة الشحنات والباقات والعمولات
+                </p>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">✏️</div>
+                        <h3 class="feature-title">تحديث حالة الشحنات</h3>
+                        <p class="feature-text">مباشرة من اللوحة دون الحاجة لرفع ملفات</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📦</div>
+                        <h3 class="feature-title">إدارة الباقات</h3>
+                        <p class="feature-text">إنشاء باقات مخصصة بأسعار مخفضة للتجار</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">💰</div>
+                        <h3 class="feature-title">عرض العمولات</h3>
+                        <p class="feature-text">فواتير شهرية تفصيلية </p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <h3 class="feature-title">تقارير الأداء</h3>
+                        <p class="feature-text">متابعة نسبة التحديثات اليومية والامتثال</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Commission Model -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="logo-container">
+                    <img src="C:\Users\User\Downloads\logo.jpeg" alt="Logo" class="logo">
+                    <span class="brand-name">SHIPPED</span>
+                </div>
+                <span class="slide-number">10 / 12</span>
+            </div>
+            <div class="slide-content">
+                <h2 class="title">نموذج العمولة</h2>
+                <p class="description">
+                    المنصة مجانية تماماً للتجار - شركات الشحن تدفع عمولة 3% فقط
+                </p>
+                <div class="stats-container">
+                    <div class="stat-box">
+                        <div class="stat-number">عمولة صغيرة</div>
+                        <div class="stat-label">عمولة على جميع الشحنات</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">0 جنيه</div>
+                        <div class="stat-label">للتجار - المنصة مجانية</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">شفافية في الفواتير</div>
+                    </div>
+                </div>
+                <ul class="benefit-list" style="margin-top: 40px;">
+                    <li>عمولة صغيرة على جميع الشحنات</li>
+                    <li>فواتير شهرية تلقائية في اليوم الأول من كل شهر</li>
+                    <li>إمكانية الاعتراض على الفواتير مع نظام حل النزاعات</li>
+                    <li>تتبع حالة الدفع لكل فاتورة</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 11: Key Benefits -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="logo-container">
+                    <img src="C:\Users\User\Downloads\logo.jpeg" alt="Logo" class="logo">
+                    <span class="brand-name">SHIPPED</span>
+                </div>
+                <span class="slide-number">11 / 12</span>
+            </div>
+            <div class="slide-content">
+                <h2 class="title">لماذا تختار Shipped</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🌐</div>
+                        <h3 class="feature-title">شبكة كبيرة من شركات الشحن</h3>
+                        <p class="feature-text">
+                            الوصول إلى شبكة واسعة من شركات الشحن حول الجمهورية
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">💲</div>
+                        <h3 class="feature-title">أسعار تنافسية</h3>
+                        <p class="feature-text">
+                            مقارنة الأسعار بين الشركات للعثور على أفضل صفقة
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">⏱️</div>
+                        <h3 class="feature-title">توفير الوقت</h3>
+                        <p class="feature-text">
+                            تحديثات فورية وشفافية كاملة
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔒</div>
+                        <h3 class="feature-title">آمن وموثوق</h3>
+                        <p class="feature-text">
+                            شركات شحن معتمدة وموثوقة لضمان راحة بالك
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🇪🇬</div>
+                        <h3 class="feature-title">دعم اللغة العربية</h3>
+                        <p class="feature-text">
+                            واجهة بالعربية والإنجليزية لسهولة الاستخدام
+                        </p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📱</div>
+                        <h3 class="feature-title">تطبيق موبايل</h3>
+                        <p class="feature-text">
+                            متوفر على iOS و Android لإدارة شحناتك أينما كنت
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: Contact -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="logo-container">
+                    <img src="C:\Users\User\Downloads\logo.jpeg" alt="Logo" class="logo">
+                    <span class="brand-name">SHIPPED</span>
+                </div>
+                <span class="slide-number">12 / 12</span>
+            </div>
+            <div class="slide-content" style="justify-content: center; align-items: center; text-align: center;">
+                <h2 class="title">تواصل معنا</h2>
+                <p class="description" style="margin-bottom: 50px;">
+                    نلتزم بتقديم حلول شحن متكاملة وفعالة بدون تكاليف
+                    إضافية على العملاء نسعى دائماً لتطوير خدماتنا لتلبية احتياجاتكم
+                    وتحقيق تجربة شحن أفضل وأسهل. لا تترددوا في التواصل معنا
+                    لمزيد من التفاصيل
+                </p>
+                <div class="feature-card" style="display: inline-block; max-width: 600px;">
+                    <div class="feature-title" style="font-size: 32px; margin-bottom: 25px;">📞 01063434499/01279306776
+                    </div>
+
+                </div>
+                <div class="feature-title" style="font-size: 28px; margin-bottom: 25px;">
+                    🌐 www.theshipped.com
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">← السابق</button>
+        <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">التالي →</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const progressBar = document.getElementById('progressBar');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+
+            currentSlide = (n + slides.length) % slides.length;
+
+            slides[currentSlide].classList.add('active');
+
+            // Update progress bar
+            const progress = ((currentSlide + 1) / slides.length) * 100;
+            progressBar.style.width = progress + '%';
+
+            // Update buttons
+            prevBtn.disabled = currentSlide === 0;
+            nextBtn.disabled = currentSlide === slides.length - 1;
+        }
+
+        function changeSlide(direction) {
+            showSlide(currentSlide + direction);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+                changeSlide(e.key === 'ArrowRight' ? -1 : 1); // Reversed for RTL
+            }
+        });
+
+        // Initialize
+        showSlide(0);
+    </script>
+</body>
+
+</html>
