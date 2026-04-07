@@ -34,16 +34,16 @@
 
         .presentation {
             width: 100%;
-            height: 100vh;
+            min-height: 100vh;
             position: relative;
         }
 
         .slide {
             width: 100%;
-            height: 100vh;
+            min-height: 100vh;
             display: none;
             position: relative;
-            padding: 60px 80px;
+            padding: 60px 80px 120px;
             background: linear-gradient(135deg, var(--dark) 0%, #2D2654 100%);
             opacity: 0;
             transition: opacity 0.6s ease;
@@ -68,18 +68,19 @@
             }
         }
 
-        /* Header with Logo */
         .slide-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 40px;
+            gap: 20px;
         }
 
         .logo-container {
             display: flex;
             align-items: center;
             gap: 15px;
+            flex-wrap: wrap;
         }
 
         .logo {
@@ -89,6 +90,7 @@
             padding: 8px;
             border-radius: 12px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            object-fit: contain;
         }
 
         .brand-name {
@@ -105,13 +107,13 @@
             font-weight: 600;
         }
 
-        /* Content Sections */
         .slide-content {
             flex: 1;
             display: flex;
             flex-direction: column;
             justify-content: center;
             position: relative;
+            width: 100%;
         }
 
         .title {
@@ -122,6 +124,7 @@
             margin-bottom: 25px;
             line-height: 1.2;
             text-shadow: 2px 4px 8px rgba(0, 0, 0, 0.2);
+            word-break: break-word;
         }
 
         .subtitle {
@@ -129,6 +132,7 @@
             color: var(--secondary);
             margin-bottom: 40px;
             font-weight: 500;
+            line-height: 1.5;
         }
 
         .description {
@@ -139,21 +143,23 @@
             margin-bottom: 30px;
         }
 
-        /* Feature Grid */
         .feature-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 30px;
             margin-top: 40px;
+            width: 100%;
         }
 
         .feature-card {
             background: rgba(255, 255, 255, 0.08);
             backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 20px;
             padding: 30px;
             transition: all 0.3s ease;
+            width: 100%;
         }
 
         .feature-card:hover {
@@ -179,6 +185,7 @@
             font-weight: 700;
             color: white;
             margin-bottom: 12px;
+            line-height: 1.5;
         }
 
         .feature-text {
@@ -187,12 +194,12 @@
             line-height: 1.6;
         }
 
-        /* Stats Section */
         .stats-container {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(3, minmax(0, 1fr));
             gap: 30px;
             margin-top: 50px;
+            width: 100%;
         }
 
         .stat-box {
@@ -208,20 +215,22 @@
             font-weight: 800;
             color: var(--secondary);
             margin-bottom: 10px;
+            line-height: 1.3;
         }
 
         .stat-label {
             font-size: 18px;
             color: white;
             font-weight: 600;
+            line-height: 1.5;
         }
 
-        /* Screenshot Container */
         .screenshot-container {
             position: absolute;
             left: 80px;
             bottom: 80px;
             width: 350px;
+            max-width: calc(100% - 160px);
         }
 
         .screenshot-container img {
@@ -231,10 +240,10 @@
             border: 8px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* List Styling */
         .benefit-list {
             list-style: none;
             margin-top: 30px;
+            width: 100%;
         }
 
         .benefit-list li {
@@ -253,9 +262,9 @@
             font-size: 28px;
             font-weight: bold;
             flex-shrink: 0;
+            line-height: 1;
         }
 
-        /* Navigation */
         .navigation {
             position: fixed;
             bottom: 40px;
@@ -264,11 +273,14 @@
             display: flex;
             gap: 15px;
             z-index: 1000;
+            flex-wrap: wrap;
+            justify-content: center;
         }
 
         .nav-btn {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             border: 2px solid rgba(255, 255, 255, 0.2);
             color: white;
             padding: 12px 30px;
@@ -291,7 +303,6 @@
             cursor: not-allowed;
         }
 
-        /* Progress Bar */
         .progress-bar {
             position: fixed;
             top: 0;
@@ -302,31 +313,35 @@
             z-index: 1001;
         }
 
-        /* Two Column Layout */
         .two-column {
             display: grid;
             grid-template-columns: 1.2fr 1fr;
             gap: 60px;
             align-items: center;
+            width: 100%;
         }
 
         .column-content {
             display: flex;
             flex-direction: column;
             gap: 20px;
+            min-width: 0;
         }
 
         .column-image {
             position: relative;
+            min-width: 0;
         }
 
         .column-image img {
             width: 100%;
+            max-width: 100%;
             border-radius: 20px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            display: block;
+            object-fit: cover;
         }
 
-        /* Special Slide Types */
         .slide-cover {
             justify-content: center;
             align-items: center;
@@ -345,7 +360,6 @@
             margin-bottom: 40px;
         }
 
-        /* Decorative Elements */
         .decorative-circle {
             position: absolute;
             border-radius: 50%;
@@ -368,14 +382,17 @@
             background: radial-gradient(circle, rgba(91, 79, 222, 0.1), transparent);
         }
 
-        /* Responsive */
         @media (max-width: 1200px) {
             .slide {
-                padding: 40px;
+                padding: 40px 40px 110px;
             }
 
             .title {
                 font-size: 48px;
+            }
+
+            .description {
+                font-size: 20px;
             }
 
             .feature-grid {
@@ -384,6 +401,223 @@
 
             .two-column {
                 grid-template-columns: 1fr;
+                gap: 35px;
+            }
+
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+
+            .screenshot-container {
+                position: static;
+                width: 100%;
+                max-width: 500px;
+                margin-top: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: 20px 20px 110px;
+                min-height: 100vh;
+            }
+
+            .slide-content {
+                justify-content: flex-start;
+            }
+
+            .slide-header {
+                flex-direction: column;
+                align-items: flex-start;
+                margin-bottom: 25px;
+            }
+
+            .logo-container {
+                gap: 10px;
+            }
+
+            .logo {
+                width: 45px;
+                height: 45px;
+                padding: 6px;
+            }
+
+            .brand-name {
+                font-size: 22px;
+            }
+
+            .slide-number {
+                font-size: 15px;
+            }
+
+            .title {
+                font-size: 32px;
+                line-height: 1.35;
+                margin-bottom: 16px;
+            }
+
+            .slide-cover .title {
+                font-size: 42px;
+            }
+
+            .slide-cover .logo {
+                width: 80px;
+                height: 80px;
+                margin-bottom: 24px;
+            }
+
+            .subtitle {
+                font-size: 18px;
+                margin-bottom: 24px;
+            }
+
+            .description {
+                font-size: 16px;
+                line-height: 1.8;
+                max-width: 100%;
+                margin-bottom: 20px;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+                gap: 18px;
+                margin-top: 24px;
+            }
+
+            .feature-card {
+                padding: 20px;
+                border-radius: 16px;
+            }
+
+            .feature-icon {
+                width: 42px;
+                height: 42px;
+                font-size: 20px;
+                margin-bottom: 14px;
+            }
+
+            .feature-title {
+                font-size: 18px;
+                margin-bottom: 8px;
+            }
+
+            .feature-text {
+                font-size: 14px;
+            }
+
+            .benefit-list {
+                margin-top: 20px;
+            }
+
+            .benefit-list li {
+                font-size: 16px;
+                gap: 10px;
+                margin-bottom: 14px;
+            }
+
+            .benefit-list li::before {
+                font-size: 22px;
+            }
+
+            .two-column {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .column-image img {
+                max-height: 260px;
+            }
+
+            .stats-container {
+                grid-template-columns: 1fr;
+                gap: 18px;
+                margin-top: 30px;
+            }
+
+            .stat-box {
+                padding: 24px 18px;
+            }
+
+            .stat-number {
+                font-size: 32px;
+            }
+
+            .stat-label {
+                font-size: 16px;
+            }
+
+            .navigation {
+                bottom: 18px;
+                width: calc(100% - 24px);
+                gap: 10px;
+            }
+
+            .nav-btn {
+                padding: 10px 18px;
+                font-size: 14px;
+                min-width: 120px;
+            }
+
+            .circle-1 {
+                width: 220px;
+                height: 220px;
+                top: -110px;
+                left: -110px;
+            }
+
+            .circle-2 {
+                width: 320px;
+                height: 320px;
+                bottom: -160px;
+                left: -160px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .slide {
+                padding: 16px 16px 100px;
+            }
+
+            .title {
+                font-size: 26px;
+            }
+
+            .slide-cover .title {
+                font-size: 34px;
+            }
+
+            .subtitle {
+                font-size: 16px;
+            }
+
+            .description {
+                font-size: 15px;
+            }
+
+            .brand-name {
+                font-size: 20px;
+            }
+
+            .feature-title {
+                font-size: 17px;
+            }
+
+            .benefit-list li {
+                font-size: 15px;
+            }
+
+            .nav-btn {
+                min-width: 100px;
+                padding: 10px 14px;
+                font-size: 13px;
+            }
+
+            .stat-number {
+                font-size: 28px;
+            }
+
+            .stat-label {
+                font-size: 15px;
             }
         }
     </style>
@@ -792,14 +1026,12 @@
                 <div class="feature-card" style="display: inline-block; max-width: 600px;">
                     <div class="feature-title" style="font-size: 32px; margin-bottom: 25px;">📞 01063434499/01279306776
                     </div>
-
                 </div>
                 <div class="feature-title" style="font-size: 28px; margin-bottom: 25px;">
                     🌐 www.theshipped.com
                 </div>
             </div>
         </div>
-    </div>
     </div>
 
     <!-- Navigation -->
@@ -822,27 +1054,48 @@
 
             slides[currentSlide].classList.add('active');
 
-            // Update progress bar
             const progress = ((currentSlide + 1) / slides.length) * 100;
             progressBar.style.width = progress + '%';
 
-            // Update buttons
             prevBtn.disabled = currentSlide === 0;
             nextBtn.disabled = currentSlide === slides.length - 1;
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function changeSlide(direction) {
             showSlide(currentSlide + direction);
         }
 
-        // Keyboard navigation
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
-                changeSlide(e.key === 'ArrowRight' ? -1 : 1); // Reversed for RTL
+                changeSlide(e.key === 'ArrowRight' ? -1 : 1);
             }
         });
 
-        // Initialize
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            const diff = touchEndX - touchStartX;
+            if (Math.abs(diff) < 50) return;
+
+            if (diff > 0 && currentSlide > 0) {
+                changeSlide(-1);
+            } else if (diff < 0 && currentSlide < slides.length - 1) {
+                changeSlide(1);
+            }
+        }
+
         showSlide(0);
     </script>
 </body>
